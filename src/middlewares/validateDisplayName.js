@@ -1,0 +1,13 @@
+const validateDisplayName = (req, res, next) => {
+  const { displayName } = req.body;
+  const minLength = 8;
+
+  if (displayName.length < minLength) {
+    return res.status(400)
+    .json({ message: '"displayName" length must be at least 8 characters long' });
+  }
+
+  return next();
+};
+
+module.exports = validateDisplayName;
