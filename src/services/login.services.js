@@ -8,7 +8,7 @@ const login = async (email, password) => {
     return { type: 'invalid_fields' };
   }
 
-  const token = createToken(email);
+  const token = createToken(user);
 
   return { type: null, message: token };
 };

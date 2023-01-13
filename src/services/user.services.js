@@ -10,14 +10,14 @@ const createUser = async ({ displayName, email, password, image }) => {
     return { type: 'User already registered' };
   }
 
-  await User.create({
+  const user = await User.create({
     displayName,
     email,
     password,
     image,
   });
 
-  const token = createToken(email);
+  const token = createToken(user);
   return { type: null, message: token };
 };
 

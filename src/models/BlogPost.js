@@ -14,6 +14,7 @@ const BlogPost = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.INTEGER,
       foreignKey: true,
+      allowNull: false,
     },
     published: {
       type: DataTypes.DATE
