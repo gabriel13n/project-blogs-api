@@ -1,5 +1,18 @@
 const { BlogPost, Category, PostCategory, User } = require('../models');
 
+const INCLUDE_ARRAY = [
+  {
+    model: User,
+    as: 'user',
+    attributes: { exclude: ['password'] },
+  },
+  {
+    model: Category,
+    as: 'categories',
+    through: { attributes: [] },
+  },
+];
+
 const createPost = async ({ title, content, userId, categoryIds }) => {
   const { count } = await Category.findAndCountAll({ where: { id: categoryIds } });
 
@@ -20,24 +33,26 @@ const createPost = async ({ title, content, userId, categoryIds }) => {
 
 const getAllPosts = async () => {
   const allPosts = await BlogPost.findAll({
-    include: [
-      {
-        model: User,
-        as: 'user',
-        attributes: { exclude: ['password'] },
-      },
-      {
-        model: Category,
-        as: 'categories',
-        through: { attributes: [] },
-      },
-    ],
+    include: INCLUDE_ARRAY,
   });
 
   return allPosts;
 };
 
+const getPostById = async (id) => {
+  const postById = await BlogPost.findByPk(id, {
+    include: INCLUDE_ARRAY,
+  });
+
+  if (!postById) {
+    return { type: 'post not found', message: 'Post does not exist' };
+  }
+
+  return { type: null, message: postById };
+};
+
 module.exports = {
   createPost,
   getAllPosts,
+  getPostById,
 };
