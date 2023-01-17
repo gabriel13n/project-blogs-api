@@ -1,7 +1,6 @@
 const postService = require('../services/post.service');
 
 const createPost = async (req, res) => {
-  console.log(req.user);
   const userId = req.user.id;
 
   const { title, content, categoryIds } = req.body;

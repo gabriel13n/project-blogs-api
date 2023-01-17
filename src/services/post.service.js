@@ -79,10 +79,10 @@ const deletePost = async (id, userId) => {
   }
 
   await BlogPost.destroy({ where: { id } });
-  return {};
+
+  return { type: null, message: 'successfully deleted post' };
 };
 
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjozLCJkaXNwbGF5TmFtZSI6ImdhYmlydSB0ZXN0dHR0IiwiZW1haWwiOiJ0ZXN0dHR0QGdtYWkuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpbWFnZSI6Imh0dHA6Ly80LmJwLmJsb2dzcG90LmNvbS9fWUE1MGFkUS03dlEvUzFnZlJfNnVmcEkvQUFBQUFBQUFBQWsvMUVySkdnUldaRGcvUzQ1L2JyZXR0LnBuZyJ9LCJpYXQiOjE2NzM5NzAxMDQsImV4cCI6MTY3Mzk3MTkwNH0.wyBT2I50q8cq8QZ8ZBLRzMJCjlhzGfG_vOzJmfMO0rg
 module.exports = {
   createPost,
   getAllPosts,
