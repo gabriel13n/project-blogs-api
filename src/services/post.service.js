@@ -67,9 +67,26 @@ const updatePost = async (id, title, content, userId) => {
   return postUpdated;
 };
 
+const deletePost = async (id, userId) => {
+  const postById = await BlogPost.findByPk(id);
+
+  if (!postById) {
+    return { type: 'post not found', message: 'Post does not exist' };
+  }
+  
+  if (postById.userId !== userId) {
+    return { type: 'not authorized', message: 'Unauthorized user' };
+  }
+
+  await BlogPost.destroy({ where: { id } });
+  return {};
+};
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7ImlkIjozLCJkaXNwbGF5TmFtZSI6ImdhYmlydSB0ZXN0dHR0IiwiZW1haWwiOiJ0ZXN0dHR0QGdtYWkuY29tIiwicGFzc3dvcmQiOiIxMjM0NTYiLCJpbWFnZSI6Imh0dHA6Ly80LmJwLmJsb2dzcG90LmNvbS9fWUE1MGFkUS03dlEvUzFnZlJfNnVmcEkvQUFBQUFBQUFBQWsvMUVySkdnUldaRGcvUzQ1L2JyZXR0LnBuZyJ9LCJpYXQiOjE2NzM5NzAxMDQsImV4cCI6MTY3Mzk3MTkwNH0.wyBT2I50q8cq8QZ8ZBLRzMJCjlhzGfG_vOzJmfMO0rg
 module.exports = {
   createPost,
   getAllPosts,
   getPostById,
   updatePost,
+  deletePost,
 };
